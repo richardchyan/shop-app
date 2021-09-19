@@ -8,7 +8,8 @@ import Success from './components/Success';
 import Cancel from './components/Cancel';
 
 // Initialize local storage outside a function. Will not work inside!
-const savedCart = JSON.parse(localStorage.getItem('cart') || []);
+// parse an empty array if there is no local storage to not return undefined which gives an error
+const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
 
 function App() {
   
@@ -56,19 +57,14 @@ function App() {
           <Route exact path="/">
             <Storefront products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} />
           </Route>
-          <Route path="/success">
-            <Success />
+          <Route exact path="/success">
+            <Success setCart={setCart} />
           </Route>
-          <Route path="/cancel">
+          <Route exact path="/cancel">
             <Cancel />
           </Route>
         </Switch>
       </Router>
-      {/* { products.length == 0 && <div className="text-7xl uppercase"> ....Loading</div>}
-      { products.length !== 0 && 
-        <Storefront products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} />
-      }
-       */}
       
     </div>
   );

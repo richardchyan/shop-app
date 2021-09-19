@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import Product from './Product/Product.js';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import Loader from './loader.gif';
 
 const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart }) => {
 
-   // const location = useLocation();
    const itemsSubtotal = cart.reduce((accumlatedTotal, currentItem) => accumlatedTotal + currentItem.price * currentItem.qty, 0);
    const taxPrice = itemsSubtotal * 0.13;
    const shippingPrice = itemsSubtotal && itemsSubtotal > 199 ? 0 : 20 ;
@@ -14,9 +13,13 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart }) =
    async function handleCheckout(){
       try {
          console.log('you have checked out');
-         const response = await axios.post('http://localhost:4000/create-checkout-session', cart);
-         window.location = response.data.url;
-
+         if(shippingPrice !== 0){
+            const response = await axios.post('http://localhost:4000/create-checkout-session', cart);
+            window.location = response.data.url;
+         } else {
+            const response = await axios.post('http://localhost:4000/create-checkout-session-free-shipping', cart);
+            window.location = response.data.url;
+         }
       } catch (error) {
          console.log(error);
       }
@@ -24,7 +27,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart }) =
 
    return (
       <div>
-         { products.length == 0 && <div className="text-7xl uppercase"> ....Loading</div>}
+         { products.length == 0 && <img className="m-auto w-1/2 md:w-1/3 lg:w-1/5" src={Loader} alt="Loading progress" />}
          { products.length !== 0 && 
                <div className="grid grid-cols-8 m-auto max-w-screen-lg p-3 space-x-4">
                {/* ===================== Product Items div ===================== */}
