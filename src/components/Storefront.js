@@ -20,10 +20,10 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
    async function handleCheckout(){
       try {
          if(shippingPrice !== 0){
-            const response = await axios.post('http://localhost:4000/create-checkout-session', cart);
+            const response = await axios.post('https://shopapp-server.herokuapp.com/create-checkout-session', cart);
             window.location = response.data.url;
          } else {
-            const response = await axios.post('http://localhost:4000/create-checkout-session-free-shipping', cart);
+            const response = await axios.post('https://shopapp-server.herokuapp.com/create-checkout-session-free-shipping', cart);
             window.location = response.data.url;
          }
       } catch (error) {
