@@ -15,6 +15,7 @@ function App() {
   
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState(savedCart);
+  const [mobileCartOpen, setMobileCartOpen] = useState(false);
 
   const fetchProducts = async () => {
     const products = await axios.get('https://fakestoreapi.com/products');
@@ -25,6 +26,11 @@ function App() {
     localStorage.setItem('cart', JSON.stringify(cart));
     fetchProducts();
   }, [cart])  
+
+  function toggleCartOpen(){
+    setMobileCartOpen(prevMobileCartOpen => !prevMobileCartOpen);
+    console.log(`the current state of the cart is ${mobileCartOpen}`);
+  }
 
   function handleAddToCart(product){
     const existingItem = cart.find(item => item.id === product.id);
@@ -51,11 +57,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar toggleCartOpen={toggleCartOpen}/>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Storefront products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} />
+            <Storefront products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} mobileCartOpen={mobileCartOpen} setMobileCartOpen={setMobileCartOpen}/>
           </Route>
           <Route exact path="/success">
             <Success setCart={setCart} />
@@ -65,7 +71,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-      
     </div>
   );
 }
