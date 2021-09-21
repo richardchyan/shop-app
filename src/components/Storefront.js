@@ -4,8 +4,9 @@ import axios from 'axios';
 import Loader from './loader.gif';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CgArrowUpO } from 'react-icons/cg';
+import { FcCheckmark } from 'react-icons/fc';
 
-const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mobileCartOpen, setMobileCartOpen }) => {
+const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, incrementCart, mobileCartOpen, setMobileCartOpen, itemAdded }) => {
 
    const itemsSubtotal = cart.reduce((accumlatedTotal, currentItem) => accumlatedTotal + currentItem.price * currentItem.qty, 0);
    const taxPrice = itemsSubtotal * 0.13;
@@ -31,13 +32,19 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
       }
    }
 
+   if(mobileCartOpen){
+      document.querySelector('html').style.overflow = 'hidden';
+   } else {
+      document.querySelector('html').style.overflow = 'scroll';
+   }
+
    return (
       <div>
          { products.length == 0 && <img className="m-auto w-1/2 md:w-1/3 lg:w-1/5" src={Loader} alt="Loading progress" />}
          { products.length !== 0 && 
-            // Storefront Wrapper 
+            // ================================== Entire Storefront Wrapper ==========================================
             <div>
-               {/* Product and Items Wrapper */}
+               {/* ================ Product and Items Wrapper ================== */}
                <div className="grid grid-cols-8 m-auto max-w-screen-lg p-3 space-x-4">
                   {/* ===================== Product Items div ===================== */}
                   <div className="col-span-8 md:col-span-5">
@@ -50,7 +57,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
                   </div>
                   {/* ===================== Cart Preview div ===================== */}
                   <div className="hidden md:block col-start-6 col-span-3">
-                     <div className="border-2 border-black bg-gray-100">
+                     <div className="border-2 border-black bg-gray-100 rounded">
                         {/* Cart Preview on Storefront page */}
                         <div className="text-xl font-bold">Cart</div>
                         <div className="border-4 text-xl">
@@ -62,7 +69,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
                               <div className="uppercase font-semibold ">{item.title}</div>
                               <img src={item.image} style={{height: '50px', width: '50px'}} className="mx-auto my-3" alt={item.description} />
                               <div>
-                                 <button className="rounded text-2xl px-4 py-1 mx-1 bg-yellow-300" onClick={() => handleAddToCart(item)}>+</button>
+                                 <button className="rounded text-2xl px-4 py-1 mx-1 bg-yellow-300" onClick={() => incrementCart(item)}>+</button>
                                  <button className="rounded text-2xl px-4 py-1 mx-1  bg-yellow-300" onClick={() => handleRemoveFromCart(item)}>-</button>
                               </div>
                               <div>
@@ -103,8 +110,9 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
                {/* Storefront Wrapper end */}
             </div>
          }
-         {/* ================ Mobile Cart Popout ====================== */}
-         <div className={mobileCartOpen ? "bg-blue-100 fixed z-10 w-11/12 top-0 right-0 transform -translate-x-0 h-screen transition ease-in-out duration-500 rounded" : "bg-blue-100 fixed z-10 w-11/12 top-0 right-0 h-screen transform translate-x-full transition ease-in-out duration-500" }>
+
+         {/* ============================================= Mobile Cart Popout =============================================  */}
+         <div className={mobileCartOpen ? "bg-blue-100 fixed z-10 w-11/12 top-0 right-0 transform -translate-x-0 h-screen transition ease-in-out duration-500 rounded overflow-y-auto" : "bg-blue-100 fixed z-10 w-11/12 top-0 right-0 h-screen transform translate-x-full transition ease-in-out duration-500" }>
          {/* Cart Preview on Storefront page */}
             <button className="text-5xl my-2" onClick={closeCart}>
                <AiOutlineCloseCircle />
@@ -119,7 +127,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
                   <div className="uppercase font-semibold ">{item.title}</div>
                   <img src={item.image} style={{height: '50px', width: '50px'}} className="mx-auto my-3" alt={item.description} />
                   <div>
-                     <button className="rounded text-2xl px-4 py-1 mx-1 bg-yellow-300" onClick={() => handleAddToCart(item)}>+</button>
+                     <button className="rounded text-2xl px-4 py-1 mx-1 bg-yellow-300" onClick={() => incrementCart(item)}>+</button>
                      <button className="rounded text-2xl px-4 py-1 mx-1  bg-yellow-300" onClick={() => handleRemoveFromCart(item)}>-</button>
                   </div>
                   <div>
@@ -149,6 +157,15 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, mob
             )}
          </div>
         
+         {/* ================== Cart Item Added Popup Confirmation =================== */}
+         <div className={ itemAdded ? "fade-in-fast bg-gray-800 bg-opacity-90 text-white fixed top-0 left-0 z-20 w-full h-screen rounded-lg" : "hidden"}>
+            <div className="flex items-center justify-center mt-24 absolute inset-0">
+               <FcCheckmark className="text-7xl"/>
+               <span className="text-6xl"> Cart Item added</span>   
+            </div>
+         </div>
+
+
       </div>
    )
 }

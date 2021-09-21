@@ -16,6 +16,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState(savedCart);
   const [mobileCartOpen, setMobileCartOpen] = useState(false);
+  const [itemAdded, setItemAdded] = useState(false);
 
   const fetchProducts = async () => {
     const products = await axios.get('https://fakestoreapi.com/products');
@@ -29,7 +30,7 @@ function App() {
 
   function toggleCartOpen(){
     setMobileCartOpen(prevMobileCartOpen => !prevMobileCartOpen);
-    console.log(`the current state of the cart is ${mobileCartOpen}`);
+    // console.log(`the current state of the cart is ${mobileCartOpen}`);
   }
 
   function handleAddToCart(product){
@@ -37,10 +38,30 @@ function App() {
     if(existingItem){
       setCart(
         cart.map(item => item.id === product.id ? 
+          {...item, qty: item.qty + 1} : item));
+      setItemAdded(true);
+      setTimeout(() => {
+        setItemAdded(false);
+      }, 1200);
+    } else {
+      setCart([...cart, {...product, qty: 1 }]);
+      setItemAdded(true);
+      setTimeout(() => {
+        setItemAdded(false);
+      }, 1200);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function incrementCart(product){
+    const existingItem = cart.find(item => item.id === product.id);
+    if(existingItem){
+      setCart(
+        cart.map(item => item.id === product.id ? 
           {...item, qty: item.qty + 1}
           : item));
     } else {
-      setCart([...cart, {...product, qty: 1 }])
+      setCart([...cart, {...product, qty: 1 }]);
     }
     localStorage.setItem('cart', JSON.stringify(cart));
   }
@@ -61,7 +82,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Storefront products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} mobileCartOpen={mobileCartOpen} setMobileCartOpen={setMobileCartOpen}/>
+            <Storefront products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} mobileCartOpen={mobileCartOpen} setMobileCartOpen={setMobileCartOpen} itemAdded={itemAdded} incrementCart={incrementCart} />
           </Route>
           <Route exact path="/success">
             <Success setCart={setCart} />
