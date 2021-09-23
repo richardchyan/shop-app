@@ -23,9 +23,12 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
          if(shippingPrice !== 0){
             const response = await axios.post('https://shopapp-server.herokuapp.com/create-checkout-session', cart);
             window.location = response.data.url;
+            // const response = await axios.post('https://localhost:4000/create-checkout-session', cart);
+            // window.location = response.data.url;
          } else {
             const response = await axios.post('https://shopapp-server.herokuapp.com/create-checkout-session-free-shipping', cart);
-            window.location = response.data.url;
+            // const response = await axios.post('https://localhost:4000/create-checkout-session-free-shipping', cart);
+            // window.location = response.data.url;
          }
       } catch (error) {
          console.log(error);
@@ -45,9 +48,9 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
             // ================================== Entire Storefront Wrapper ==========================================
             <div>
                {/* ================ Product and Items Wrapper ================== */}
-               <div className="grid grid-cols-8 m-auto max-w-screen-lg p-3 space-x-4">
+               <div className="grid grid-cols-8 m-auto max-w-screen-xl p-3 space-x-4">
                   {/* ===================== Product Items div ===================== */}
-                  <div className="col-span-8 md:col-span-5">
+                  <div className="col-span-8 md:col-span-6">
                      {/* Product items */}
                      <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-3 max-w-screen-lg m-auto">                 
                         { products && products.map(product => (
@@ -56,8 +59,8 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                      </div>
                   </div>
                   {/* ===================== Cart Preview div ===================== */}
-                  <div className="hidden md:block col-start-6 col-span-3">
-                     <div className="border-2 border-black bg-gray-100 rounded">
+                  <div className="hidden md:block col-span-2">
+                     <div className="border-2 border-black bg-gray-100 rounded-lg">
                         {/* Cart Preview on Storefront page */}
                         <div className="text-xl font-bold">Cart</div>
                         <div className="border-4 text-xl">
