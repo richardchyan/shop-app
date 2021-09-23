@@ -2,9 +2,6 @@ import React from 'react'
 
 const Product = ({ product, handleAddToCart }) => {
 
-   function expandEllipsis(){
-   }
-
    return (
       <div className="border-2 border-black p-4 rounded-lg flex flex-col">
          <div>
