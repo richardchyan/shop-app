@@ -73,8 +73,8 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                               <div className="uppercase font-semibold ">{item.title}</div>
                               <img src={item.image} style={{height: '50px', width: '50px'}} className="mx-auto my-3" alt={item.description} />
                               <div>
-                                 <button className="rounded text-2xl px-4 py-1 mx-1 bg-yellow-300" onClick={() => incrementCart(item)}>+</button>
-                                 <button className="rounded text-2xl px-4 py-1 mx-1  bg-yellow-300" onClick={() => handleRemoveFromCart(item)}>-</button>
+                                 <button className="rounded text-2xl px-4 py-1 mx-1 bg-yellow-300 hover:bg-yellow-500" onClick={() => incrementCart(item)}>+</button>
+                                 <button className="rounded text-2xl px-4 py-1 mx-1  bg-yellow-300 hover:bg-yellow-500" onClick={() => handleRemoveFromCart(item)}>-</button>
                               </div>
                               <div>
                                  Amount: <span className="font-semibold">{item.qty}</span> x ${item.price.toFixed(2)}
@@ -98,14 +98,14 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                            </div>
                            {/* Price Total and Checkout button */}
                            <div className="text-xl border-black rounded">Total: ${cart.length!== 0 ? totalPrice.toFixed(2) : '0.00'} </div>
-                           <button onClick={handleCheckout} className={cart.length !==0 ? "mt-4 text-lg border-2 border-black bg-yellow-300 rounded px-4 py-5" : "mt-4 text-lg border-2 border-black bg-blue-300 rounded px-4 py-5  opacity-20"}>{cart.length !==0 ? 'Go to Checkout' : 'Add items to checkout'}</button>
+                           <button onClick={handleCheckout} className={cart.length !==0 ? "mt-4 text-lg border-2 border-black bg-yellow-300 hover:bg-yellow-500 rounded px-4 py-5" : "mt-4 text-lg border-2 border-black bg-blue-300 rounded px-4 py-5  opacity-20"}>{cart.length !==0 ? 'Go to Checkout' : 'Add items to checkout'}</button>
                         </div>
                         )}
                      </div>
                   </div>
                </div>
                {/* footer */}
-               <footer className="flex justify-evenly items-center p-4">
+               <footer className="flex justify-evenly items-center p-4 mb-4">
                   <div> Copyright 2021 &copy; John's Pawn Shop</div>
                   <a href="#" className="text-6xl ">
                      <CgArrowUpO /> 

@@ -8,7 +8,7 @@ const Product = ({ product, handleAddToCart }) => {
             <span className="text-lg uppercase font-semibold">{product.title}</span>
             <img className="m-auto my-4" src={product.image} alt={product.title} style={{height: '150px', width: '175px'}} />  
          </div>
-         <div>
+         <div className="flex-1">
             <p className="text-xl p-2"><span className="font-semibold">Price:</span> ${product.price}</p>
             <p className="text-left m-auto break-words">{product.description}</p>
          </div>
