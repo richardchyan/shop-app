@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Product from './Product/Product.js';
 import axios from 'axios';
 import Loader from './loader.gif';
+import checkoutSpinner from './checkout-spinner.gif';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CgArrowUpO } from 'react-icons/cg';
 import { FcCheckmark } from 'react-icons/fc';
@@ -12,6 +13,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
    const taxPrice = itemsSubtotal * 0.13;
    const shippingPrice = itemsSubtotal && itemsSubtotal > 199 ? 0 : 20 ;
    const totalPrice = itemsSubtotal + taxPrice + shippingPrice;
+   const [checkingOut, setCheckingOut] = useState(false);
 
    function closeCart(){
       setMobileCartOpen(false);
@@ -19,6 +21,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
    }
 
    async function handleCheckout(){
+      setCheckingOut(true);
       try {
          if(shippingPrice !== 0){
             const response = await axios.post('https://shopapp-server.herokuapp.com/create-checkout-session', cart);
@@ -98,7 +101,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                            </div>
                            {/* Price Total and Checkout button */}
                            <div className="text-xl border-black rounded">Total: ${cart.length!== 0 ? totalPrice.toFixed(2) : '0.00'} </div>
-                           <button onClick={handleCheckout} className={cart.length !==0 ? "mt-4 text-lg border-2 border-black bg-yellow-300 hover:bg-yellow-500 rounded px-4 py-5" : "mt-4 text-lg border-2 border-black bg-blue-300 rounded px-4 py-5  opacity-20"}>{cart.length !==0 ? 'Go to Checkout' : 'Add items to checkout'}</button>
+                           <button onClick={handleCheckout} className="mt-4 text-lg border-2 border-black bg-yellow-300 hover:bg-yellow-500 rounded px-4 py-5">{ !checkingOut ? 'Go to checkout' : <div className="flex"> Checking out... <img src={checkoutSpinner} style={{ width: '30px', height: '30px'}}/> </div> }</button>
                         </div>
                         )}
                      </div>
@@ -156,7 +159,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                </div>
                {/* Price Total and Checkout button */}
                <div className="text-xl border-black rounded">Total: ${cart.length!== 0 ? totalPrice.toFixed(2) : '0.00'} </div>
-               <button onClick={handleCheckout} className={cart.length !==0 ? "mt-4 text-lg border-2 border-black bg-yellow-300 rounded px-4 py-5" : "mt-4 text-lg border-2 border-black bg-blue-300 rounded px-4 py-5  opacity-20"}>{cart.length !==0 ? 'Go to Checkout' : 'Add items to checkout'}</button>
+               <button onClick={handleCheckout} className="mt-4 text-lg border-2 border-black bg-yellow-300 hover:bg-yellow-500 rounded px-4 py-5">{ !checkingOut ? 'Go to checkout' : <div className="flex"> Checking out... <img src={checkoutSpinner} style={{ width: '30px', height: '30px'}}/> </div> }</button>
             </div>
             )}
          </div>
