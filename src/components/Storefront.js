@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Product from './Product/Product.js';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
@@ -6,6 +6,7 @@ import checkoutSpinner from '../images/checkout-spinner.gif';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CgArrowUpO } from 'react-icons/cg';
 import { FcCheckmark } from 'react-icons/fc';
+import { FiChevronRight } from 'react-icons/fi';
 
 const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, incrementCart, mobileCartOpen, setMobileCartOpen, itemAdded }) => {
 
@@ -47,7 +48,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
 
    return (
       <div>
-         { products.length == 0 && <img className="m-auto w-1/2 md:w-1/3 lg:w-1/5" src={Loader} alt="Loading progress" />}
+         { products.length === 0 && <img className="m-auto w-1/2 md:w-1/3 lg:w-1/5" src={Loader} alt="Loading progress" />}
          { products.length !== 0 && 
             // ================================== Entire Storefront Wrapper ==========================================
             <div>
@@ -101,7 +102,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                            </div>
                            {/* Price Total and Checkout button */}
                            <div className="text-xl border-black rounded">Total: ${cart.length!== 0 ? totalPrice.toFixed(2) : '0.00'} </div>
-                           <button onClick={handleCheckout} className="mt-4 text-lg border-2 border-black bg-yellow-300 hover:bg-yellow-500 rounded px-4 py-5">{ !checkingOut ? 'Go to checkout' : <div className="flex"> Checking out... <img src={checkoutSpinner} style={{ width: '30px', height: '30px'}}/> </div> }</button>
+                           <button onClick={handleCheckout} className="mt-4 text-lg border-2 border-black bg-yellow-300 hover:bg-yellow-500 rounded px-4 py-5">{ !checkingOut ? 'Go to checkout' : <div className="flex"> Checking out... <img src={checkoutSpinner} alt="spinner" style={{ width: '30px', height: '30px'}}/> </div> }</button>
                         </div>
                         )}
                      </div>
@@ -121,8 +122,8 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
          {/* ============================================= Mobile Cart Popout =============================================  */}
          <div className={mobileCartOpen ? "bg-blue-50 fixed z-10 w-11/12 top-0 right-0 transform -translate-x-0 h-screen transition ease-in-out duration-500 rounded overflow-y-auto" : "bg-blue-50 fixed z-10 w-11/12 top-0 right-0 h-screen transform translate-x-full transition ease-in-out duration-500" }>
          {/* Cart Preview on Storefront page */}
-            <button className="text-5xl my-2" onClick={closeCart}>
-               <AiOutlineCloseCircle />
+            <button className="text-5xl my-2 border-2 border-black rounded-xl block ml-8" onClick={closeCart}>
+               <FiChevronRight/>
             </button>
             <div className="text-xl font-bold">Cart</div>
             <div className="border-b-2 text-xl border-black">

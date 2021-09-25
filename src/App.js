@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import Storefront from './components/Storefront';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Success from './components/Success';
 import Cancel from './components/Cancel';
 

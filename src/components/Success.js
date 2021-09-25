@@ -8,7 +8,7 @@ const Success = ({ setCart }) => {
       localStorage.clear();
       setCart([]);
 
-   }, []);
+   }, [setCart]);
 
    return (
       <div>

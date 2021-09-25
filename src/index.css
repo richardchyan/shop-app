@@ -41,8 +41,3 @@ animation: fade-in 1.5s;
   from {opacity: 0;}
   to {opacity: 1;}
 }
-
-.sticky-nav {
-  position: sticky;
-  top: 0;
-}
