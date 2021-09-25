@@ -1,19 +1,23 @@
 import React from 'react'
-import { GrCart } from 'react-icons/gr';
+import { FiShoppingCart } from 'react-icons/fi';
+import logo from '../images/john-logo.svg';
 
 const Navbar = ({ toggleCartOpen }) => {
    return (
-      <div id='#' className="sticky-nav md:static w-full py-6 mb-8 bg-blue-800 rounded-lg">
-         <div className="flex justify-center md:justify-evenly p-2 space-x-3">
-            <h1 className="text-xl md:text-4xl text-white uppercase track-wider border-4 border-white border-dotted w-3/4 md:w-1/2 py-2">John's Pawn Shop</h1>
-            <button onClick={toggleCartOpen} className="text-4xl bg-blue-200 rounded-lg p-2 md:hidden">
-               <GrCart /> 
+      <div id='#' className="sticky-nav md:static md:pb-4 mb-2 md:mb-8 bg-blue-800 rounded-sm">
+         <div className="flex justify-between md:justify-evenly px-2 py-1 items-center">
+            <div className="flex justify-start md:justify-evenly items-center">
+               <img src={logo} className="w-1/6" alt="John's Pawn shop" />
+               <h1 className="p-2 text-2xl md:text-4xl text-white uppercase track-wider">John's Pawn Shop</h1>
+            </div>
+            <h2 className="block md:hidden text-xs text-white">* Free shipping over $199!</h2>
+            <button onClick={toggleCartOpen} className="text-2xl text-white border-white border-2 rounded-lg px-4 py-2 md:hidden">
+               <FiShoppingCart /> 
             </button>
          </div>
-         <h2 className="text-lg md:text-2xl mt-4 text-white">A collection of miscellaneous goods!</h2>
-         <div className="mt-4">
-            <span className="rounded bg-blue-200 p-2 uppercase tracking-wider text-md md:text-lg">* Free shipping on orders over $199!</span>
-         </div>
+         <span className="hidden md:block text-lg text-white">A collection of miscellaneous goods!</span>
+         <span className="hidden md:inline-block mt-2 rounded bg-blue-50 p-1 uppercase tracking-wider text-xs">* Free shipping on orders over $199!</span>
+       
       </div>
    )
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Product from './Product/Product.js';
 import axios from 'axios';
-import Loader from './loader.gif';
-import checkoutSpinner from './checkout-spinner.gif';
+import Loader from '../images/loader.gif';
+import checkoutSpinner from '../images/checkout-spinner.gif';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CgArrowUpO } from 'react-icons/cg';
 import { FcCheckmark } from 'react-icons/fc';
@@ -64,10 +64,10 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
                   </div>
                   {/* ===================== Cart Preview div ===================== */}
                   <div className="hidden md:block col-span-2">
-                     <div className="border-2 border-black bg-gray-100 rounded-lg">
+                     <div className="border-2 border-black bg-gray-50 rounded-lg">
                         {/* Cart Preview on Storefront page */}
                         <div className="text-xl font-bold">Cart</div>
-                        <div className="border-4 text-xl">
+                        <div className="border-t-2 border-blue-100 text-xl">
                               { !cart.length && 'You currently have no items in your cart' }
                         </div>
                         {/* individual items in cart */}
@@ -119,7 +119,7 @@ const Storefront = ({ products, cart, handleAddToCart, handleRemoveFromCart, inc
          }
 
          {/* ============================================= Mobile Cart Popout =============================================  */}
-         <div className={mobileCartOpen ? "bg-blue-100 fixed z-10 w-11/12 top-0 right-0 transform -translate-x-0 h-screen transition ease-in-out duration-500 rounded overflow-y-auto" : "bg-blue-100 fixed z-10 w-11/12 top-0 right-0 h-screen transform translate-x-full transition ease-in-out duration-500" }>
+         <div className={mobileCartOpen ? "bg-blue-50 fixed z-10 w-11/12 top-0 right-0 transform -translate-x-0 h-screen transition ease-in-out duration-500 rounded overflow-y-auto" : "bg-blue-50 fixed z-10 w-11/12 top-0 right-0 h-screen transform translate-x-full transition ease-in-out duration-500" }>
          {/* Cart Preview on Storefront page */}
             <button className="text-5xl my-2" onClick={closeCart}>
                <AiOutlineCloseCircle />
