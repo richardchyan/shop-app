@@ -10,7 +10,7 @@ This application allows you to add items to the cart fetched from the Fakestore 
 
 **Server:** Node, ExpressJS
 
-**APIs:** [FakestoreAPI](https://fakestoreapi.com/), [https://stripe.com/docs/api/authentication](https://stripe.com/docs/api/authentication)
+**APIs:** [FakestoreAPI](https://fakestoreapi.com/), [Stripe Checkout API](https://stripe.com/docs/api/authentication)
 
 ## Demo
 
